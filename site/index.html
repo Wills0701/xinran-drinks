@@ -72,6 +72,27 @@ function categoryOf(s,p){
 }
 const ALL=S.flatMap(s=>s.products.map(p=>({store:s.id,name:p.name,category:categoryOf(s,p)})));
 function poolFor(c=category){return ALL.filter(p=>c==='all'||p.category===c)}
+// Personal preferences: a small additive boost, capped to keep variety.
+const FAVORITE_STORES=new Set(S.filter(s=>s.brand==='霸王茶姬'||s.name.includes('霸王茶姬')).map(s=>s.id));
+function preferenceWeight(p){
+ const brand=FAVORITE_STORES.has(p.store),apple=p.name.includes('苹果');
+ // 伯牙绝弦 is jasmine tea (CHAGEE official product description).
+ const jasmine=/茉莉|伯牙绝弦/.test(p.name);
+ return Math.min(1.5,1+0.25*Number(brand)+0.25*Number(apple)+0.25*Number(jasmine));
+}
+function weightedChoices(pool,previous=current){
+ const withoutLast=pool.filter(p=>!previous||p.store!==previous.store||p.name!==previous.name);
+ const choices=withoutLast.length?withoutLast:pool,counts=new Map();
+ choices.forEach(p=>counts.set(p.store,(counts.get(p.store)||0)+1));
+ // Preserve the equal-store baseline, then apply the modest item preferences.
+ return choices.map(p=>({item:p,weight:preferenceWeight(p)/counts.get(p.store)}));
+}
+function pickDrink(pool,previous=current,random=Math.random){
+ const entries=weightedChoices(pool,previous);if(!entries.length)return null;
+ let ticket=random()*entries.reduce((sum,e)=>sum+e.weight,0);
+ for(const entry of entries){ticket-=entry.weight;if(ticket<0)return entry.item}
+ return entries[entries.length-1].item;
+}
 function render(){
  $('date').textContent=new Date().toLocaleDateString('zh-CN',{timeZone:'Asia/Shanghai',month:'long',day:'numeric',weekday:'long'});
  document.querySelectorAll('[data-category]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.category===category)));
@@ -91,11 +112,7 @@ function endDraw(commit=true){
 function draw(){
  if(busy)return;
  syncDay();const pool=poolFor();if(!pool.length)return;
- const withoutLast=pool.filter(p=>!current||p.store!==current.store||p.name!==current.name);
- const choices=withoutLast.length?withoutLast:pool;
- // Pick a store first, then an item, so menus with more variants do not dominate.
- const stores=[...new Set(choices.map(p=>p.store))],store=stores[Math.floor(Math.random()*stores.length)];
- const products=choices.filter(p=>p.store===store),pick=products[Math.floor(Math.random()*products.length)];
+ const pick=pickDrink(pool,current);
  pending={store:pick.store,name:pick.name};
  if(!motion||motionQuery.matches){endDraw();return}
  busy=true;document.body.classList.add('busy');$('result').setAttribute('aria-busy','true');render();
