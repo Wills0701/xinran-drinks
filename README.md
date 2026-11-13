@@ -1,0 +1,32 @@
+# 赵欣然今天喝什么
+
+乌萨奇底纹的饮品随机网页：331 个截图确认的单品、品类筛选、可关闭的抽签动效，以及星座乐当天的天秤座运势摘录。售罄的单品照常参与随机，不单独标记。
+
+## 发布到 GitHub Pages
+
+1. 将本文件夹的内容放到仓库根目录，保留 `.github/workflows/pages.yml`。
+2. 在仓库的 **Settings → Pages → Build and deployment → Source** 中选择 **GitHub Actions**。
+3. 在 **Actions → Publish drink picker → Run workflow** 手动运行一次，或向默认分支提交更新。
+4. 工作流成功后，Pages 设置页与部署记录会显示实际访问网址。访问者不需要 GitHub 账号。
+
+免费 GitHub 账号使用公开仓库；网页默认公开。发布前若仓库已有网站，应先核对现有 Pages 配置。
+
+## 运势更新方式
+
+GitHub Pages 只能托管静态文件，因此由 GitHub Actions 联网读取星座乐、核验北京时间的当天日期，并把短摘录、评分、幸运信息写入 `site/horoscope.json` 后发布。页面会显示“定时更新”，不表示每次访问都实时抓取。
+
+计划每天北京时间 00:17、02:17、08:17、14:17 更新；定时工作流可能排队延迟。公开仓库连续 60 天没有活动时，GitHub 可能自动停用定时工作流，需要在 Actions 中重新启用。可随时手动运行补更。
+
+来源抓取失败不会阻止奶茶功能发布。页面不会把旧日期当作今天；只允许明确标注地展示当天已获取的浏览器缓存。源网站版式改变时可能需要调整解析器。
+
+## 本地预览
+
+在仓库目录运行 `python3 scripts/update_horoscope.py`，再运行 `python3 -m http.server 8765 --directory site`，打开 http://localhost:8765/ 。需要 Python 3.9+、curl。
+
+## 素材与内容
+
+- 乌萨奇图片来自《ちいかわ》动画官方网站： https://www.anime-chiikawa.jp/ 。© ナガノ / ちいかわ製作委員会。页面保留原图，使用 CSS 透明度和背景裁切展示。
+- 饮品名称按用户提供的菜单截图整理，点单链接指向用户提供的同品牌店铺。
+- 运势摘录来自星座乐当天页面： https://www.1212.com/luck/libra/ ，页面提供原文入口，内容仅供娱乐。
+
+这是个人分享项目，不是官方品牌网站。
