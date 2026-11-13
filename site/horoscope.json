@@ -1,14 +1,15 @@
 {
+  "sign": "aries",
   "date": "2026-11-14",
   "source": "星座乐",
-  "sourceUrl": "https://www.1212.com/luck/libra/20261114.html",
-  "excerpt": "今天适合去户外人少的地方散散步…",
+  "sourceUrl": "https://www.1212.com/luck/aries/20261114.html",
+  "excerpt": "闲暇时间有缘分接触养生方面的信息。",
   "scores": {
-    "综合": 53,
-    "爱情": 52,
-    "心情": 58
+    "综合": 48,
+    "爱情": 17,
+    "心情": 73
   },
-  "color": "浅蓝色",
-  "number": "6",
-  "fetchedAt": "2026-11-14T02:11:32+08:00"
+  "color": "青色",
+  "number": "3",
+  "fetchedAt": "2026-11-14T02:44:15+08:00"
 }

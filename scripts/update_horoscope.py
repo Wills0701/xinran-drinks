@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def generate():
     day = datetime.now(ZONE).date()
-    url = f'https://www.1212.com/luck/libra/{day:%Y%m%d}.html'
+    url = f'https://www.1212.com/luck/aries/{day:%Y%m%d}.html'
     try:
         response = subprocess.run(
             ['curl', '-sSL', '--fail', '--retry', '2', '--retry-delay', '3',

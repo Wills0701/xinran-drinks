@@ -11,7 +11,7 @@ def clean(value):
 
 
 def parse_horoscope(document, day):
-    expected = f'天秤座{day.year}年{day.month}月{day.day}日运势'
+    expected = f'白羊座{day.year}年{day.month}月{day.day}日运势'
     title = re.search(r'class="attr-title"[^>]*>(.*?)</div>', document, re.S)
     if not title or clean(title.group(1)) != expected:
         raise ValueError('Source date does not match today')
@@ -33,8 +33,8 @@ def parse_horoscope(document, day):
     clause = sentence.split('，', 1)[0]
     excerpt = clause[:24] + ('…' if len(clause) > 24 or clause != sentence else '。')
     return {
-        'date': day.isoformat(), 'source': '星座乐',
-        'sourceUrl': f'https://www.1212.com/luck/libra/{day:%Y%m%d}.html',
+        'sign': 'aries', 'date': day.isoformat(), 'source': '星座乐',
+        'sourceUrl': f'https://www.1212.com/luck/aries/{day:%Y%m%d}.html',
         'excerpt': excerpt, 'scores': {key: scores[key] for key in ('综合', '爱情', '心情')},
         'color': attrs['幸运颜色'], 'number': attrs['幸运数字'],
         'fetchedAt': datetime.now(ZONE).isoformat(timespec='seconds')

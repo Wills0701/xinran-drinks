@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
-      - name: Read today's Libra horoscope
+      - name: Read today's Aries horoscope
         run: python scripts/update_horoscope.py
       - name: Configure Pages
         uses: actions/configure-pages@v5
