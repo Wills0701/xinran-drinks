@@ -52,3 +52,9 @@ GitHub Pages 只能托管静态文件，因此由 GitHub Actions 联网读取星
 布丁狗站立图来自三丽鸥官方角色页 https://www.sanrio.co.jp/characters/pompompurin/ ，睡觉与欢呼图参考 https://getstickerpack.com/stickers/pompompurin （图 13、图 3），图形权利归 SANRIO 所有。素材嵌入网页，由 CSS 控制排列与视窗；访问时无需加载外部图站。标题使用 ZCOOL KuaiLe 字体子集，许可见 TITLE-FONT-LICENSE.txt，并内嵌于网页源码注释。
 
 后续改动先在本地预览，只有用户明确要求上传时才同步并发布。
+
+## 今日双卡片
+
+主卡片下方为等宽、等高的左右两块：左侧白羊座运势只保留一句提醒、幸运色和数字；右侧今日黄历显示农历日期及宜、忌各两项。两块卡片在主题切换时同步浮动，手机上也保持左右对齐。
+
+GitHub Actions 使用同一更新计划分别生成 site/horoscope.json 与 site/almanac.json，再发布到 Pages。黄历由 scripts/almanac.py 核验 https://www.1212.com/huangli/ 页面公历日期后解析；页面和浏览器缓存都拒绝非当天数据。两项读取互不影响，获取失败只显示对应卡片的重试状态，不阻止饮品网页发布。黄历宜忌为传统文化内容，原文入口保留。
