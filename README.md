@@ -58,3 +58,10 @@ GitHub Pages 只能托管静态文件，因此由 GitHub Actions 联网读取星
 主卡片下方为等宽、等高的左右两块：左侧白羊座运势只保留一句提醒、幸运色和数字；右侧今日黄历显示农历日期及宜、忌各两项。两块卡片在主题切换时同步浮动，手机上也保持左右对齐。
 
 GitHub Actions 使用同一更新计划分别生成 site/horoscope.json 与 site/almanac.json，再发布到 Pages。黄历由 scripts/almanac.py 核验 https://www.1212.com/huangli/ 页面公历日期后解析；页面和浏览器缓存都拒绝非当天数据。两项读取互不影响，获取失败只显示对应卡片的重试状态，不阻止饮品网页发布。黄历宜忌为传统文化内容，原文入口保留。
+
+## 名字上的角色
+
+
+两套主题分别在“赵欣然”三个字上方展示最初的趴姿乌萨奇 / 布丁狗。角色容器由 108px 缩小为 84px，约缩小 22%；切换时整只趴姿角色从视口上沿落下，轻轻回弹后趴稳，约 0.9 秒完成。初次打开静态展示；系统减少动态效果时跳过动画。快速切换取消旧动画，不改变饮品和每日内容。
+
+乌萨奇趴姿参考 https://shapes.inc/usagi-wbp8 （https://shapes.inc/api/public/avatar/usagi-wbp8），布丁狗趴姿参考 https://www.getstickerpack.com/stickers/sanrio-pompompurin-stickers （sticker_9.png）。图片嵌入网页，乌萨奇图的白色外围通过 SVG 显示滤镜去除并保留原图透明边界，原始位图未修改。相关形象权利分别归 Nagano / SANRIO 所有。此版本已同步公开网页。后续改动仍先在本地预览，待用户明确要求再发布。
